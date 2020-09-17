@@ -15,6 +15,24 @@ public class Gift {
     private Long walletId;
     private String status;
 
+    @PostPersist
+    public void onPostPersist(){
+//        Used used = new Used();
+//        BeanUtils.copyProperties(this, used);
+//        used.publishAfterCommit();
+
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+        game.external.KakaoTalk kakaoTalk = new game.external.KakaoTalk();
+        // mappings goes here
+        kakaoTalk.setId(this.getId());
+        kakaoTalk.setStatus("send message!!!!");
+        GiftApplication.applicationContext.getBean(game.external.KakaoTalkService.class)
+                .use(kakaoTalk);
+
+
+    }
 
     public Long getId() {
         return id;

@@ -62,3 +62,6 @@ spring:
         event-out:
           destination: game
           contentType: application/json
+api:
+  url:
+    kakaotalk: http://game-kakaotalk:8080
